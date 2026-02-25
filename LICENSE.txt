@@ -1,0 +1,22 @@
+Copyright (c) 2026 [Korzh Izabella Romanovna]. All rights reserved.
+
+This source code is the intellectual property of the author and is protected by 
+copyright laws and international treaties.
+
+TERMS AND CONDITIONS:
+
+1. PERMITTED USE:
+   You are granted permission to view and study the source code for educational 
+   and informational purposes only.
+
+2. PROHIBITED ACTIONS:
+   - You may NOT copy, redistribute, or publish the source code, in whole or in part.
+   - You may NOT use this code in any commercial or non-commercial projects.
+   - You may NOT modify, adapt, or create derivative works based on this code.
+
+3. NO WARRANTY:
+   The software is provided "as is", without warranty of any kind. 
+
+Any use of this code outside of "PERMITTED USE" requires prior written consent 
+from the author. Unauthorized use may lead to legal action under the laws of 
+the Republic of Kazakhstan and international copyright regulations.
