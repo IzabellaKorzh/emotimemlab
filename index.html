@@ -78,11 +78,55 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
         }
+        
+        /* Бургер-меню для мобилок */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 250px;
+                height: 100vh;
+                background: white;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+                padding: 80px 20px 20px;
+                transform: translateX(100%);
+                z-index: 50;
+            }
+            .mobile-menu.open {
+                transform: translateX(0);
+            }
+            .burger-icon {
+                display: block;
+                z-index: 60;
+            }
+        }
+        @media (min-width: 769px) {
+            .burger-icon {
+                display: none;
+            }
+            .mobile-menu {
+                display: none;
+            }
+        }
+        .burger-icon {
+            cursor: pointer;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
 
-    <!-- НАВИГАЦИЯ -->
+    <!-- НАВИГАЦИЯ с бургер-меню -->
     <nav class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex items-center justify-between h-16">
@@ -90,15 +134,38 @@
                     <span class="text-2xl">🎓</span>
                     <span class="font-bold text-xl text-gray-800">EmotiMeme Lab</span>
                 </div>
-                <div class="flex gap-6">
+                
+                <!-- Десктопное меню -->
+                <div class="desktop-menu flex gap-6">
                     <a href="#testing" class="text-gray-700 hover:text-blue-600 font-medium transition">Testing</a>
                     <a href="#theory" class="text-gray-700 hover:text-blue-600 font-medium transition">Theory</a>
                     <a href="#meme-lab" class="text-gray-700 hover:text-blue-600 font-medium transition">Translation Lab</a>
                     <a href="#collection" class="text-gray-700 hover:text-blue-600 font-medium transition">Showcase</a>
                 </div>
+                
+                <!-- Бургер-иконка -->
+                <div class="burger-icon" onclick="toggleMobileMenu()">
+                    ☰
+                </div>
+            </div>
+        </div>
+        
+        <!-- Мобильное меню -->
+        <div id="mobileMenu" class="mobile-menu">
+            <div class="flex flex-col gap-4">
+                <a href="#testing" onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600 font-medium transition py-2">Testing</a>
+                <a href="#theory" onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600 font-medium transition py-2">Theory</a>
+                <a href="#meme-lab" onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600 font-medium transition py-2">Translation Lab</a>
+                <a href="#collection" onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600 font-medium transition py-2">Showcase</a>
             </div>
         </div>
     </nav>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+    </script>
 
     <!-- ГЛАВНАЯ СЕКЦИЯ -->
     <section class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white py-16">
@@ -171,14 +238,14 @@
             <h2 class="text-3xl font-bold mb-2">🎭 Translation Lab</h2>
             <p class="text-gray-600 mb-6">Discover how Ekman's categorization of emotions, Skopos theory, and various translation solutions work using real examples.</p>
 
-            <!-- ЦВЕТНЫЕ КНОПКИ ЭМОЦИЙ -->
+            <!-- ЦВЕТНЫЕ КНОПКИ ЭМОЦИЙ с подсветкой -->
             <div class="flex flex-wrap gap-2 mb-6">
                 <button id="filterSadness" class="emotion-filter px-4 py-2 bg-blue-600 text-white rounded-full">😢 Sadness</button>
-                <button id="filterAnger" class="emotion-filter px-4 py-2 bg-red-600 text-white rounded-full">😠 Anger</button>
-                <button id="filterFear" class="emotion-filter px-4 py-2 bg-gray-600 text-white rounded-full">😨 Fear</button>
-                <button id="filterDisgust" class="emotion-filter px-4 py-2 bg-green-600 text-white rounded-full">🤢 Disgust</button>
-                <button id="filterHappiness" class="emotion-filter px-4 py-2 bg-yellow-600 text-white rounded-full">😊 Happiness</button>
-                <button id="filterSurprise" class="emotion-filter px-4 py-2 bg-cyan-600 text-white rounded-full">😲 Surprise</button>
+                <button id="filterAnger" class="emotion-filter px-4 py-2 bg-gray-200 text-gray-800 rounded-full">😠 Anger</button>
+                <button id="filterFear" class="emotion-filter px-4 py-2 bg-gray-200 text-gray-800 rounded-full">😨 Fear</button>
+                <button id="filterDisgust" class="emotion-filter px-4 py-2 bg-gray-200 text-gray-800 rounded-full">🤢 Disgust</button>
+                <button id="filterHappiness" class="emotion-filter px-4 py-2 bg-gray-200 text-gray-800 rounded-full">😊 Happiness</button>
+                <button id="filterSurprise" class="emotion-filter px-4 py-2 bg-gray-200 text-gray-800 rounded-full">😲 Surprise</button>
             </div>
 
             <div id="memeCard" class="bg-white rounded-2xl shadow-xl p-6 card-shadow"></div>
@@ -377,11 +444,11 @@
         </div>
     </div>
 
-    <!-- Футер -->
+    <!-- Футер с копирайтом -->
     <footer class="bg-gray-800 text-white py-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <p>🎓 EmotiMeme Lab — Diploma Project, Karaganda National Research University named after academician Ye.A. Buketov, 2026</p>
-            <p class="text-gray-400 text-sm mt-2">The website was developed as a practical part of a thesis project by Korzh Izabella. The technical solution and content are protected by copyright. All rights reserved. Any copying or use of materials is possible only with the author's permission.</p>
+            <p class="text-gray-400 text-sm mt-2">© 2026 Korzh Izabella Romanovna. All rights reserved. This work is protected by copyright law. Any use without permission is prohibited.</p>
         </div>
     </footer>
 
@@ -423,132 +490,186 @@
             "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NjFsNGx3b29rZmFtb2QzNWFyOXcwdGUyN2NycWEycWp3Zm44N2R0ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TpsuCxwsNH8gatbpR5/giphy.gif"
         ];
 
-        // ==================== ДАННЫЕ ДЛЯ MEME LAB ====================
-        const memeData = {
-            sadness: {
-                emoji: "😢",
-                title: "Sadness",
-                bgClass: "from-blue-100 to-blue-200",
-                image: "https://avatars.mds.yandex.net/i?id=c2c5a9c54e6b966acaa7cb51e3bd0cf5e35f6978-4602151-images-thumbs&n=13",
-                originalText: "Me after sending a risky text and seeing 'typing…' disappear",
-                originalEmotion: "sadness+anxiety",
-                strategies: [
-                    { type: "LITERAL TRANSLATION", text: "«Я после того, как отправил рискованное сообщение и \"печатает…\" исчезло»", emotion: "Sadness → Mild anxiety", use: "точность сохранена, но звучит неестественно из-за синтаксической кальки и отсутствия адаптации термина «исчезло» под живой сленговый контекст" },
-                    { type: "CULTURAL SUBSTITUTION", text: "«Я, когда написал \"нам надо поговорить\" и в ответ тишина»", emotion: "Sadness + existential dread", use: "«нам надо поговорить» — культурно заряженная фраза" },
-                    { type: "VISUAL ANCHORING", text: "«когда чел онлайн, а ответа нет уже 3 дня...»", emotion: "Sadness preserved", use: "работает, если упор на образ" },
-                    { type: "MODULATION + SKOPOS SHIFT", text: "«Когда стипендия через месяц»", emotion: "Sadness → Financial despair", use: "Skopos: student reality" }
-                ]
+        // ==================== НОВЫЕ ВОПРОСЫ ДЛЯ МАГИСТРОВ ====================
+        const masterQuestions = [
+            {
+                id: 101,
+                question: "Какие виды выпускной работы предусмотрены для магистрантов?",
+                options: [
+                    "Дипломная работа и исследовательская работа",
+                    "Магистерская диссертация и выпускной проект",
+                    "Дипломный проект и научная статья",
+                    "Только магистерская диссертация"
+                ],
+                correct: 1,
+                explanation: "Магистрант выполняет либо магистерскую диссертацию (исследование), либо выпускной проект (практическую разработку)."
             },
-            anger: {
-                emoji: "😠",
-                title: "Anger",
-                bgClass: "from-red-100 to-red-200",
-                image: "https://upload.wikimedia.org/wikipedia/en/1/1f/WomanYellingAtACat_meme.jpg",
-                originalText: "When someone says 'calm down'",
-                originalEmotion: "anger",
-                strategies: [
-                    { type: "LITERAL", text: "«Когда тебе говорят \"успокойся\"»", emotion: "гнев сохраняется", use: "" },
-                    { type: "CULTURAL SUBSTITUTION", text: "«Когда тебе говорят \"ты слишком эмоциональная\"»", emotion: "Anger → Anger + gender frustration", use: "работает в русскоязычном фем-дискурсе" },
-                    { type: "VISUAL ANCHORING", text: "«Я и моя реакция на \"а я говорииил\"»", emotion: "Anger → General irritation", use: "" },
-                    { type: "MODULATION + SKOPOS", text: "«Я работаю за троих второй год, а премию получил племянник директора?!»", emotion: "Anger → Sense of Injustice", use: "Skopos: Irony about corporate injustice" }
-                ]
+            {
+                id: 102,
+                question: "Какой минимальный объём установлен для выпускных работ магистрантов?",
+                options: [
+                    "Диссертация — 60 стр., проект — 30 стр.",
+                    "Диссертация — 70 стр., проект — 20 стр.",
+                    "Диссертация — 80 стр., проект — 40 стр.",
+                    "Диссертация — 50 стр., проект — 20 стр."
+                ],
+                correct: 1,
+                explanation: "Минимальные объёмы: магистерская диссертация — 70 страниц, магистерский проект — 20 страниц. Приложения в этот объём не входят."
             },
-            fear: {
-                emoji: "😨",
-                title: "Fear",
-                bgClass: "from-gray-100 to-gray-200",
-                image: "https://en.meming.world/images/en/thumb/5/5f/Scared_Hamster.jpg/300px-Scared_Hamster.jpg",
-                originalText: "I'm scared stiff",
-                originalEmotion: "fear",
-                strategies: [
-                    { type: "LITERAL", text: "«Я напуган до смерти»", emotion: "Fear (30%) - слишком сухо, буквально", use: "" },
-                    { type: "CULTURAL SUBSTITUTION", text: "«Когда ночью вспомнил, что завтра нужно сдать поделки из шишек»", emotion: "Fear + Parent's panic", use: "очень узнаваемо, типичная боль родителей в СНГ" },
-                    { type: "VISUAL ANCHORING", text: "«Когда случайно нажал позвонить»", emotion: "Fear → социальная паника", use: "" },
-                    { type: "MODULATION + SKOPOS", text: "<span class='block mb-2'>«Когда проверка дипломов уже началась, а ты вспомнил про список литературы»</span><span class='block text-sm text-gray-600 mb-1'>📊 Emotion shift: Fear → Academic dread</span><span class='block mb-3'>💡 Skopos: students</span><span class='block mb-2'>«Когда мама вернулась, а ты еще не вытащил мясо из морозилки»</span><span class='block text-sm text-gray-600 mb-1'>📊 Emotion shift: Fear → Survival instinct</span><span class='block'>💡 Skopos: family reality</span>", emotion: "", use: "" }
-                ]
+            {
+                id: 103,
+                question: "Какой минимальный объём установлен для введения и заключения?",
+                options: [
+                    "Введение — 1 стр., заключение — 1 стр.",
+                    "Введение — 2 стр., заключение — 2 стр.",
+                    "Введение — 3 стр., заключение — 3 стр.",
+                    "Введение — 5 стр., заключение — 5 стр."
+                ],
+                correct: 2,
+                explanation: "И введение, и заключение должны быть не менее 3 страниц."
             },
-            disgust: {
-                emoji: "🤢",
-                title: "Disgust",
-                bgClass: "from-green-100 to-green-200",
-                image: "https://upload.wikimedia.org/wikipedia/en/4/45/Side_Eyeing_Chloe.jpg",
-                originalText: "When someone says pineapple belongs on pizza",
-                originalEmotion: "disgust + bewilderment",
-                strategies: [
-                    { type: "LITERAL", text: "«Когда кто-то говорит, что ананас — это нормально на пицце»", emotion: "", use: "" },
-                    { type: "CULTURAL SUBSTITUTION", text: "«Когда кто-то говорит, что окрошку надо заправлять кефиром»", emotion: "anger + willingness to debate", use: "вызывает такую же бурную дискуссию в русскоязычной среде" },
-                    { type: "VISUAL ANCHORING", text: "«Лицо, когда услышал откровенную чушь»", emotion: "Disgust → Intellectual contempt", use: "" },
-                    { type: "MODULATION + SKOPOS", text: "«Филолог, услышавший \"ихний\"»", emotion: "Disgust → Professional irritation", use: "Skopos: Intellectual gatekeeping" }
-                ]
+            {
+                id: 104,
+                question: "Какие требования установлены к количеству источников?",
+                options: [
+                    "Диссертация — 40, проект — 10",
+                    "Диссертация — 50, проект — 20",
+                    "Диссертация — 60, проект — 20",
+                    "Диссертация — 70, проект — 30"
+                ],
+                correct: 2,
+                explanation: "Минимум: 60 источников — для магистерской диссертации, 20 — для выпускного проекта."
             },
-            happiness: {
-                emoji: "😊",
-                title: "Happiness",
-                bgClass: "from-yellow-100 to-yellow-200",
-                image: "https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F0a209460-4442-11ea-a083-1ec392b38124.jpg?crop=1013%2C1267%2C126%2C12",
-                originalText: "Submitted assignment. Teacher cancels class.",
-                originalEmotion: "happiness",
-                strategies: [
-                    { type: "LITERAL", text: "«Сдал задание. Препод отменил пару.»", emotion: "neutral", use: "когда важен только факт" },
-                    { type: "CULTURAL SUBSTITUTION", text: "«Закрыл сессию. Жив.»", emotion: "Happiness + relief", use: "триумф для студента в СНГ, вызывающий больше эмоций, чем просто сданное задание" },
-                    { type: "VISUAL ANCHORING", text: "«Я, когда дедлайн перенесли»", emotion: "Happiness preserved", use: "Текст объясняет жест через ситуацию внезапной удачи" },
-                    { type: "MODULATION + SKOPOS", text: "«Прошел босса с 1 HP без хилок»", emotion: "Happiness → Achievement euphoria", use: "Skopos: Gaming. Мы полностью меняем учебный контекст на игровой. Для геймера победа над сложным боссом (с минимальным здоровьем) является высшей точкой удовлетворения и гордости." }
-                ]
+            {
+                id: 105,
+                question: "По какому стандарту оформляется список использованных источников?",
+                options: ["APA", "MLA", "ГОСТ 7.1–2003", "Chicago"],
+                correct: 2,
+                explanation: "Библиографическое описание оформляется по ГОСТ 7.1–2003."
             },
-            surprise: {
-                emoji: "😲",
-                title: "Surprise",
-                bgClass: "from-cyan-100 to-cyan-200",
-                image: "https://external-preview.redd.it/0UF4Gqxwe330DKxNz1_GpmkwIDX0e_TyJdXbbkDVm78.jpg?auto=webp&s=5274a519198bd315bd9eb50c2cee0d9a7e0e8126",
-                originalText: "Me when I spend all my money and have no money",
-                originalEmotion: "Surprise + Denial",
-                strategies: [
-                    { type: "LITERAL", text: "«Я после того, как потратил все свои деньги и у меня не осталось денег»", emotion: "neutral", use: "Мем теряется, потому что нет игры слов или акцента" },
-                    { type: "CULTURAL SUBSTITUTION", text: "«Я, когда делал перевод Kaspi по номеру телефона, и ошибся цифрой»", emotion: "Surprise → Existential dread", use: "заменяем абстрактную проблему траты денег на конкретику знакомую каждому в Казахстане, где секундная невнимательность превращается в квест по возврату средств" },
-                    { type: "VISUAL ANCHORING", text: "«Я, когда зашел в приложение банка после выходных»", emotion: "Surprise preserved", use: "Мы заменяем общую фразу «нет денег» на понятные нам маркеры" },
-                    { type: "MODULATION + SKOPOS", text: "«Намазала на лицо сразу три сыворотки с ретинолом и кислотами, а утром проснулась с лицом цвета помидора»", emotion: "Surprise → Physical Pain", use: "Skopos: beginners in facial skin care." }
-                ]
+            {
+                id: 106,
+                question: "Как располагаются источники в библиографическом списке?",
+                options: [
+                    "В алфавитном порядке",
+                    "По году публикации",
+                    "В порядке появления в тексте",
+                    "По типу источника"
+                ],
+                correct: 2,
+                explanation: "Источники располагаются в том порядке, в котором они впервые упоминаются в тексте."
+            },
+            {
+                id: 107,
+                question: "Как оформляются ссылки на источники в тексте?",
+                options: [
+                    "В круглых скобках (Автор, год)",
+                    "В квадратных скобках с номером источника",
+                    "В подстрочных сносках",
+                    "В конце главы"
+                ],
+                correct: 1,
+                explanation: "Ссылки указываются в квадратных скобках. Пример: [12] или [12; 45]."
+            },
+            {
+                id: 108,
+                question: "На каких языках обязательно должен быть представлен реферат?",
+                options: [
+                    "Только на русском",
+                    "Только на английском",
+                    "На казахском, русском и английском",
+                    "На одном языке по выбору"
+                ],
+                correct: 2,
+                explanation: "Реферат обязательно выполняется на трёх языках."
+            },
+            {
+                id: 109,
+                question: "Какой объём установлен для реферата?",
+                options: [
+                    "1–3 страницы",
+                    "2–12 страниц",
+                    "Не менее 2 страниц на каждый язык, но не более 9 страниц всего",
+                    "3–10 страниц"
+                ],
+                correct: 2,
+                explanation: "Рекомендуемый объём реферата — не менее 2 страниц на каждый язык, но не более 9 страниц машинописного текста в целом."
+            },
+            {
+                id: 110,
+                question: "Какие сопроводительные документы обязательно прикладываются к работе?",
+                options: [
+                    "Только отзыв руководителя",
+                    "Антиплагиат и рецензия",
+                    "Антиплагиат, нормоконтроль, реферат, рецензия, отзыв руководителя",
+                    "Только антиплагиат"
+                ],
+                correct: 2,
+                explanation: "Антиплагиат, нормоконтроль, реферат, рецензия, отзыв руководителя - это обязательный комплект документов перед защитой."
+            },
+            {
+                id: 111,
+                question: "Какие основные параметры оформления текста установлены требованиями?",
+                options: [
+                    "Arial 12, полуторный интервал, абзац 1.25",
+                    "Times New Roman 14, одинарный интервал, абзац 0.8",
+                    "Calibri 14, двойной интервал, абзац 1.5",
+                    "Times New Roman 12, полуторный интервал, абзац 2"
+                ],
+                correct: 1,
+                explanation: "Основные параметры: Times New Roman, 14 кегль, одинарный интервал, абзац 0.8."
+            },
+            {
+                id: 112,
+                question: "Какие поля страницы установлены требованиями?",
+                options: [
+                    "20 мм (2 см) со всех сторон",
+                    "Левое 30 мм (3 см), правое 10 мм (1 см), верхнее 20 мм (2см), нижнее 25 мм (2,5см)",
+                    "Левое 25 мм (2,5 см), остальные 20 мм (2см)",
+                    "По умолчанию Word"
+                ],
+                correct: 1,
+                explanation: "Левое 3 см (30 мм), Правое 1 см (10 мм), Верхнее 2 см (20 мм), Нижнее 2,5 см (25 мм). Такие поля нужны для переплёта и нормоконтроля."
+            },
+            {
+                id: 113,
+                question: "Где должен располагаться номер страницы?",
+                options: [
+                    "В правом верхнем углу",
+                    "Внизу по центру",
+                    "Внизу справа",
+                    "Вверху по центру"
+                ],
+                correct: 1,
+                explanation: "Нумерация сквозная внизу страницы по центру."
+            },
+            {
+                id: 114,
+                question: "С какой страницы начинает отображаться номер страницы?",
+                options: [
+                    "С титульного листа",
+                    "С содержания",
+                    "С введения",
+                    "С первой главы"
+                ],
+                correct: 2,
+                explanation: "Обложка, титульный лист и содержание входят в нумерацию, но номер впервые ставится на странице введения."
+            },
+            {
+                id: 115,
+                question: "Что верно относительно приложений?",
+                options: [
+                    "Они входят в общий объём работы",
+                    "Они не входят в общий объём работы",
+                    "Они считаются половиной страницы",
+                    "Их объём ограничен 10 страницами"
+                ],
+                correct: 1,
+                explanation: "Приложения не входят в основной объём магистерской работы."
             }
-        };
+        ];
 
-        // Функция обновления карточки мема
-        function updateMemeCard(emotion) {
-            const data = memeData[emotion];
-            const card = document.getElementById('memeCard');
-            
-            let strategiesHtml = '';
-            data.strategies.forEach(strategy => {
-                strategiesHtml += `
-                    <div class="border-l-4 border-blue-500 pl-4 py-2 bg-white rounded-r-lg shadow-sm hover:shadow-md transition">
-                        <span class="text-sm font-bold text-blue-600">${strategy.type}</span>
-                        <div class="font-medium">${strategy.text}</div>
-                        ${strategy.emotion ? `<p class="text-sm text-gray-600 mt-1">📊 Emotion shift: ${strategy.emotion}</p>` : ''}
-                        ${strategy.use ? `<p class="text-xs text-gray-500 mt-1">💡 ${strategy.use}</p>` : ''}
-                    </div>
-                `;
-            });
-
-            card.innerHTML = `
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Мем с цветным фоном -->
-                    <div class="bg-gradient-to-br ${data.bgClass} rounded-xl p-6 flex flex-col items-center shadow-inner">
-                        <img src="${data.image}" class="w-full max-h-96 object-contain rounded-lg mb-4 shadow-md" alt="${data.title} meme">
-                        <p class="text-center font-bold text-xl">${data.originalText}</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="text-3xl">${data.emoji}</span>
-                            <span class="text-gray-700">${data.originalEmotion}</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Стратегии -->
-                    <div class="space-y-4">
-                        ${strategiesHtml}
-                    </div>
-                </div>
-            `;
-        }
-
-        // ==================== ВОПРОСЫ ДЛЯ БАКАЛАВРОВ ====================
+        // ВОПРОСЫ ДЛЯ БАКАЛАВРОВ (без изменений)
         const bachelorQuestions = [
             {
                 id: 1,
@@ -697,114 +818,130 @@
             }
         ];
 
-        // ВОПРОСЫ ДЛЯ МАГИСТРОВ
-        const masterQuestions = [
-            {
-                id: 101,
-                question: "Каков размер левого поля для МАГИСТЕРСКОЙ ДИССЕРТАЦИИ?",
-                options: ["20 мм", "25 мм", "30 мм", "35 мм"],
-                correct: 2,
-                explanation: "Для магистерской диссертации левое поле — 30 мм"
+        // ==================== ДАННЫЕ ДЛЯ MEME LAB ====================
+        const memeData = {
+            sadness: {
+                emoji: "😢",
+                title: "Sadness",
+                bgClass: "from-blue-100 to-blue-200",
+                image: "https://avatars.mds.yandex.net/i?id=c2c5a9c54e6b966acaa7cb51e3bd0cf5e35f6978-4602151-images-thumbs&n=13",
+                originalText: "Me after sending a risky text and seeing 'typing…' disappear",
+                originalEmotion: "sadness+anxiety",
+                strategies: [
+                    { type: "LITERAL TRANSLATION", text: "«Я после того, как отправил рискованное сообщение и \"печатает…\" исчезло»", emotion: "Sadness → Mild anxiety", use: "точность сохранена, но звучит неестественно из-за синтаксической кальки и отсутствия адаптации термина «исчезло» под живой сленговый контекст" },
+                    { type: "CULTURAL SUBSTITUTION", text: "«Я, когда написал \"нам надо поговорить\" и в ответ тишина»", emotion: "Sadness + existential dread", use: "«нам надо поговорить» — культурно заряженная фраза" },
+                    { type: "VISUAL ANCHORING", text: "«когда чел онлайн, а ответа нет уже 3 дня...»", emotion: "Sadness preserved", use: "работает, если упор на образ" },
+                    { type: "MODULATION + SKOPOS SHIFT", text: "«Когда стипендия через месяц»", emotion: "Sadness → Financial despair", use: "Skopos: student reality" }
+                ]
             },
-            {
-                id: 102,
-                question: "Каков размер левого поля для РЕФЕРАТА?",
-                options: ["20 мм", "30 мм", "10 мм", "25 мм"],
-                correct: 0,
-                explanation: "Для реферата левое поле — 20 мм"
+            anger: {
+                emoji: "😠",
+                title: "Anger",
+                bgClass: "from-red-100 to-red-200",
+                image: "https://upload.wikimedia.org/wikipedia/en/1/1f/WomanYellingAtACat_meme.jpg",
+                originalText: "When someone says 'calm down'",
+                originalEmotion: "anger",
+                strategies: [
+                    { type: "LITERAL", text: "«Когда тебе говорят \"успокойся\"»", emotion: "гнев сохраняется", use: "" },
+                    { type: "CULTURAL SUBSTITUTION", text: "«Когда тебе говорят \"ты слишком эмоциональная\"»", emotion: "Anger → Anger + gender frustration", use: "работает в русскоязычном фем-дискурсе" },
+                    { type: "VISUAL ANCHORING", text: "«Я и моя реакция на \"а я говорииил\"»", emotion: "Anger → General irritation", use: "" },
+                    { type: "MODULATION + SKOPOS", text: "«Я работаю за троих второй год, а премию получил племянник директора?!»", emotion: "Anger → Sense of Injustice", use: "Skopos: Irony about corporate injustice" }
+                ]
             },
-            {
-                id: 103,
-                question: "Какой шрифт используется в основном тексте?",
-                options: ["Arial 14", "Times New Roman 12", "Times New Roman 14", "Calibri 14"],
-                correct: 2,
-                explanation: "Основной текст: Times New Roman 14"
+            fear: {
+                emoji: "😨",
+                title: "Fear",
+                bgClass: "from-gray-100 to-gray-200",
+                image: "https://en.meming.world/images/en/thumb/5/5f/Scared_Hamster.jpg/300px-Scared_Hamster.jpg",
+                originalText: "I'm scared stiff",
+                originalEmotion: "fear",
+                strategies: [
+                    { type: "LITERAL", text: "«Я напуган до смерти»", emotion: "Fear (30%) - слишком сухо, буквально", use: "" },
+                    { type: "CULTURAL SUBSTITUTION", text: "«Когда ночью вспомнил, что завтра нужно сдать поделки из шишек»", emotion: "Fear + Parent's panic", use: "очень узнаваемо, типичная боль родителей в СНГ" },
+                    { type: "VISUAL ANCHORING", text: "«Когда случайно нажал позвонить»", emotion: "Fear → социальная паника", use: "" },
+                    { type: "MODULATION + SKOPOS", text: "<span class='block mb-2'>«Когда проверка дипломов уже началась, а ты вспомнил про список литературы»</span><span class='block text-sm text-gray-600 mb-1'>📊 Emotion shift: Fear → Academic dread</span><span class='block mb-3'>💡 Skopos: students</span><span class='block mb-2'>«Когда мама вернулась, а ты еще не вытащил мясо из морозилки»</span><span class='block text-sm text-gray-600 mb-1'>📊 Emotion shift: Fear → Survival instinct</span><span class='block'>💡 Skopos: family reality</span>", emotion: "", use: "" }
+                ]
             },
-            {
-                id: 104,
-                question: "Где располагается номер страницы?",
-                options: ["В правом верхнем углу", "В центре нижней части", "В правом нижнем углу", "Сверху по центру"],
-                correct: 1,
-                explanation: "Номер страницы — в центре нижней части"
+            disgust: {
+                emoji: "🤢",
+                title: "Disgust",
+                bgClass: "from-green-100 to-green-200",
+                image: "https://upload.wikimedia.org/wikipedia/en/4/45/Side_Eyeing_Chloe.jpg",
+                originalText: "When someone says pineapple belongs on pizza",
+                originalEmotion: "disgust + bewilderment",
+                strategies: [
+                    { type: "LITERAL", text: "«Когда кто-то говорит, что ананас — это нормально на пицце»", emotion: "", use: "" },
+                    { type: "CULTURAL SUBSTITUTION", text: "«Когда кто-то говорит, что окрошку надо заправлять кефиром»", emotion: "anger + willingness to debate", use: "вызывает такую же бурную дискуссию в русскоязычной среде" },
+                    { type: "VISUAL ANCHORING", text: "«Лицо, когда услышал откровенную чушь»", emotion: "Disgust → Intellectual contempt", use: "" },
+                    { type: "MODULATION + SKOPOS", text: "«Филолог, услышавший \"ихний\"»", emotion: "Disgust → Professional irritation", use: "Skopos: Intellectual gatekeeping" }
+                ]
             },
-            {
-                id: 105,
-                question: "Ставится ли номер страницы на Титульном листе?",
-                options: ["Да, номер 1", "Нет, не ставится", "Да, но вверху", "Только в приложении"],
-                correct: 1,
-                explanation: "На титульном листе номер страницы не ставится"
+            happiness: {
+                emoji: "😊",
+                title: "Happiness",
+                bgClass: "from-yellow-100 to-yellow-200",
+                image: "https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F0a209460-4442-11ea-a083-1ec392b38124.jpg?crop=1013%2C1267%2C126%2C12",
+                originalText: "Submitted assignment. Teacher cancels class.",
+                originalEmotion: "happiness",
+                strategies: [
+                    { type: "LITERAL", text: "«Сдал задание. Препод отменил пару.»", emotion: "neutral", use: "когда важен только факт" },
+                    { type: "CULTURAL SUBSTITUTION", text: "«Закрыл сессию. Жив.»", emotion: "Happiness + relief", use: "триумф для студента в СНГ, вызывающий больше эмоций, чем просто сданное задание" },
+                    { type: "VISUAL ANCHORING", text: "«Я, когда дедлайн перенесли»", emotion: "Happiness preserved", use: "Текст объясняет жест через ситуацию внезапной удачи" },
+                    { type: "MODULATION + SKOPOS", text: "«Прошел босса с 1 HP без хилок»", emotion: "Happiness → Achievement euphoria", use: "Skopos: Gaming. Мы полностью меняем учебный контекст на игровой. Для геймера победа над сложным боссом (с минимальным здоровьем) является высшей точкой удовлетворения и гордости." }
+                ]
             },
-            {
-                id: 106,
-                question: "Какой минимальный объем Магистерского ПРОЕКТА (не диссертации)?",
-                options: ["40 страниц", "60 страниц", "80 страниц", "100 страниц"],
-                correct: 1,
-                explanation: "Минимальный объем магистерского проекта — 60 страниц"
-            },
-            {
-                id: 107,
-                question: "Как располагается слово «Таблица» перед самой таблицей?",
-                options: ["По центру, жирным", "Слева, с абзаца", "В правой части страницы", "По ширине"],
-                correct: 2,
-                explanation: "Слово «Таблица» располагается в правой части страницы"
-            },
-            {
-                id: 108,
-                question: "Как нумеруется список использованных источников?",
-                options: ["В алфавитном порядке", "В порядке появления ссылок в тексте", "По хронологии", "По типу источника"],
-                correct: 1,
-                explanation: "Список нумеруется в порядке появления ссылок в тексте"
-            },
-            {
-                id: 109,
-                question: "Какой должен быть абзацный отступ?",
-                options: ["1,25 см", "1,5 см", "1 см", "2 см"],
-                correct: 2,
-                explanation: "Абзацный отступ — 1 см"
-            },
-            {
-                id: 110,
-                question: "В каком формате выполняется Реферат?",
-                options: ["А4", "А5 (брошюра)", "А3", "Электронный вид"],
-                correct: 1,
-                explanation: "Реферат выполняется в формате А5 (брошюра)"
-            },
-            {
-                id: 111,
-                question: "Где ставится номер формулы?",
-                options: ["Слева от формулы", "Под формулой", "Справа в круглых скобках", "Формулы не нумеруются"],
-                correct: 2,
-                explanation: "Номер формулы ставится справа в круглых скобках"
-            },
-            {
-                id: 112,
-                question: "Ставится ли точка в конце заголовков разделов?",
-                options: ["Да, всегда", "Нет, не ставится", "Только если заголовок длинный", "На усмотрение автора"],
-                correct: 1,
-                explanation: "В конце заголовков точка не ставится"
-            },
-            {
-                id: 113,
-                question: "Как оформляется перенос таблицы на другую страницу?",
-                options: ["Просто разрыв страницы", "Пишется «Продолжение таблицы...»", "Повторяется заголовок таблицы", "Таблицы переносить нельзя"],
-                correct: 1,
-                explanation: "При переносе пишется «Продолжение таблицы...»"
-            },
-            {
-                id: 114,
-                question: "Каким кеглем пишется текст внутри таблиц и подрисуночные подписи?",
-                options: ["14 (как основной)", "10", "12", "8"],
-                correct: 2,
-                explanation: "Внутри таблиц и подписи — 12 кегль"
-            },
-            {
-                id: 115,
-                question: "Какими буквами обозначаются Приложения?",
-                options: ["Цифрами (1, 2, 3)", "Римскими (I, II, III)", "Русскими буквами (А, Б, В)", "Латинскими (A, B, C)"],
-                correct: 2,
-                explanation: "Приложения обозначаются русскими буквами (А, Б, В)"
+            surprise: {
+                emoji: "😲",
+                title: "Surprise",
+                bgClass: "from-cyan-100 to-cyan-200",
+                image: "https://external-preview.redd.it/0UF4Gqxwe330DKxNz1_GpmkwIDX0e_TyJdXbbkDVm78.jpg?auto=webp&s=5274a519198bd315bd9eb50c2cee0d9a7e0e8126",
+                originalText: "Me when I spend all my money and have no money",
+                originalEmotion: "Surprise + Denial",
+                strategies: [
+                    { type: "LITERAL", text: "«Я после того, как потратил все свои деньги и у меня не осталось денег»", emotion: "neutral", use: "Мем теряется, потому что нет игры слов или акцента" },
+                    { type: "CULTURAL SUBSTITUTION", text: "«Я, когда делал перевод Kaspi по номеру телефона, и ошибся цифрой»", emotion: "Surprise → Existential dread", use: "заменяем абстрактную проблему траты денег на конкретику знакомую каждому в Казахстане, где секундная невнимательность превращается в квест по возврату средств" },
+                    { type: "VISUAL ANCHORING", text: "«Я, когда зашел в приложение банка после выходных»", emotion: "Surprise preserved", use: "Мы заменяем общую фразу «нет денег» на понятные нам маркеры" },
+                    { type: "MODULATION + SKOPOS", text: "«Намазала на лицо сразу три сыворотки с ретинолом и кислотами, а утром проснулась с лицом цвета помидора»", emotion: "Surprise → Physical Pain", use: "Skopos: beginners in facial skin care." }
+                ]
             }
-        ];
+        };
+
+        // Функция обновления карточки мема
+        function updateMemeCard(emotion) {
+            const data = memeData[emotion];
+            const card = document.getElementById('memeCard');
+            
+            let strategiesHtml = '';
+            data.strategies.forEach(strategy => {
+                strategiesHtml += `
+                    <div class="border-l-4 border-blue-500 pl-4 py-2 bg-white rounded-r-lg shadow-sm hover:shadow-md transition">
+                        <span class="text-sm font-bold text-blue-600">${strategy.type}</span>
+                        <div class="font-medium">${strategy.text}</div>
+                        ${strategy.emotion ? `<p class="text-sm text-gray-600 mt-1">📊 Emotion shift: ${strategy.emotion}</p>` : ''}
+                        ${strategy.use ? `<p class="text-xs text-gray-500 mt-1">💡 ${strategy.use}</p>` : ''}
+                    </div>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Мем с цветным фоном -->
+                    <div class="bg-gradient-to-br ${data.bgClass} rounded-xl p-6 flex flex-col items-center shadow-inner">
+                        <img src="${data.image}" class="w-full max-h-96 object-contain rounded-lg mb-4 shadow-md" alt="${data.title} meme">
+                        <p class="text-center font-bold text-xl">${data.originalText}</p>
+                        <div class="mt-3 flex items-center gap-2">
+                            <span class="text-3xl">${data.emoji}</span>
+                            <span class="text-gray-700">${data.originalEmotion}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Стратегии -->
+                    <div class="space-y-4">
+                        ${strategiesHtml}
+                    </div>
+                </div>
+            `;
+        }
 
         // Состояние тренажера
         let currentQuestions = bachelorQuestions;
@@ -974,7 +1111,7 @@
         // Инициализация Meme Lab
         updateMemeCard('sadness');
 
-        // Обработчики для фильтра эмоций
+        // Обработчики для фильтра эмоций с подсветкой активной
         document.getElementById('filterSadness').addEventListener('click', function() {
             document.querySelectorAll('.emotion-filter').forEach(b => {
                 b.classList.remove('bg-blue-600', 'bg-red-600', 'bg-gray-600', 'bg-green-600', 'bg-yellow-600', 'bg-cyan-600', 'text-white');
